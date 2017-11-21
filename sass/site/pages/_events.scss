@@ -1,0 +1,76 @@
+.events-archive {
+
+    .control-header-height .site-header {
+        display: none;
+    }
+}
+
+.tribe-events-style-full {
+
+    .control-header-height .site-header {
+        display: none;
+    }
+
+    .tribe-events-single {
+        text-align: center;
+        color: rgba(0,0,0,.7);
+
+        .tribe-events-back {
+            text-align: left;
+            padding: 0 1em;
+        }
+
+        .tribe_events {
+            display: block;
+
+            .tribe-events-meta-group+.tribe-events-meta-group+.tribe-events-meta-group-gmap {
+                display: none;
+            }
+        }
+
+        .tribe-events-schedule {
+
+            h2 {
+                margin: 0;
+            }
+
+            .tribe-events-cost {
+                display: none;
+            }
+        }
+
+        .tribe-events-event-meta {
+
+            .column, .tribe-events-event-meta .tribe-events-meta-group {
+                display: block;
+                float: none;
+                width: 100%;
+            }
+
+            .tribe-events-single-section-title {
+                font-size: 1.5rem;
+            }
+
+            dl {
+                font-size: 1.25rem;
+                padding: 0 .5em;
+            }
+        }
+    }
+}
+
+//blog page plug
+.blog-soon {
+    padding: 0 1em;
+    color: #333;
+    font-size: 1.1rem;
+    font-family: $font__sans;
+
+    img {
+        width: 100px;
+    }
+
+    @media screen and ( min-width: $query__small ) {
+        font-size: 1.5rem;
+    }
+}

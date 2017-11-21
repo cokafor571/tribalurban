@@ -1,0 +1,70 @@
+.shipping-returns-page {
+    padding: .5em;
+    color: rgba(0,0,0,.8);
+
+    @media screen and ( min-width: $query__small ) {
+        padding: 1em 2em;
+    }
+
+    .shipping {
+        display: block;
+        align-items: center;
+
+        @media screen and ( min-width: $query__medium ) {
+            display: flex;
+        }
+
+        .shipping-text {
+            margin-right: 1em;
+
+            h2 {
+                font-size: 1.25rem;
+
+                @media screen and ( min-width: $query__small ) {
+                    font-size: 1.5rem;
+                }
+            }
+
+            p {
+                padding-left: .5em;
+                font-size: .97rem;
+
+                @media screen and ( min-width: $query__small ) {
+                    font-size: 1.075rem;
+                }
+                
+                span {
+                    font-weight: 700;
+                }
+            }
+        }
+
+        img {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+
+    .returns {
+
+        .returns-text {
+
+            h2 {
+                font-size: 1.25rem;
+
+                @media screen and ( min-width: $query__small ) {
+                    font-size: 1.5rem;
+                }
+            }
+
+            p {
+                padding-left: .5em;
+                font-size: .97rem;
+
+                @media screen and ( min-width: $query__small ) {
+                    font-size: 1.075rem;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,76 @@
+@keyframes translateFixedNav {
+    0% {
+        transform: translateY(-100%);
+    } 
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes translateLeft {
+    0% {
+        transform: translate3d(100%, 0, 0);
+    } 
+    100% {
+        transform: none
+    }
+}
+
+@keyframes translateRight {
+    0% {
+        transform: translate3d(-100%, 0, 0);
+    } 
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes translateUp {
+    0% {
+        transform: translate3d(0, 100%, 0);
+    } 
+    100% {
+        transform: translate3d(0,0,0);
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    } 
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    } 
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Bob */
+@keyframes hvr-bob {
+  0% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+  50% {
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+  }
+  100% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes hvr-bob-float {
+  100% {
+    -webkit-transform: translateY(-8px);
+    transform: translateY(-8px);
+  }
+}

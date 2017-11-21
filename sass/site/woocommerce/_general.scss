@@ -1,0 +1,198 @@
+//cart and checkout headers
+.entry-content > .cart-checkout-header {
+    text-align: center;
+    font-size: 1.25rem;
+    font-family: $font__sans;
+    margin-bottom: 2em;
+
+    @media screen and ( min-width: 459px ) {
+        font-size: 1.5rem;
+    }
+
+    @media screen and ( min-width: 769px ) {
+        font-size: 2rem;
+    }
+
+    a {
+        color: #777;
+        opacity: .5;
+
+        &.active {
+            color: #000;
+            opacity: 1;
+        }
+    }
+
+    span {
+        color: #777;
+        opacity: .5;
+    }
+
+    i {
+        padding: 0 .25em;
+        color: rgba(0,0,0,.5);
+    }
+}
+
+//general woocommerce layout
+.woocommerce,
+.woocommerce-page {
+    font-family: $font__sans;
+
+    //reverse page-height
+    .control-header-height {
+        max-height: 100%;
+    }
+
+    //info
+    .woocommerce-info {
+        border: none;
+        margin-bottom: 0;
+        font-size: 1rem;
+        background: none;
+
+        +.checkout_coupon {
+            border: none;
+            margin: 0;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    //breadcrumbs
+    .woocommerce-breadcrumb {
+        background-color: #f5f5f5;
+        padding: 1em .5em;
+        font-size: .8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-top: 1px solid #d2d2d2;
+        border-bottom: 1px solid #d2d2d2;
+
+        @media screen and ( min-width: $query__small ) {
+            font-size: .9rem;
+        }
+    }
+
+    //page title area
+    .woocommerce-products-header {
+        padding: 0 .5em;
+        display: block;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2em;
+
+        @media screen and ( min-width: $query__medium ) {
+            display: flex;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            text-align: center;
+
+            @media screen and ( min-width: $query__small ) {
+                text-align: left;
+                font-size: 2.5rem;
+            }
+        }
+
+        .woocommerce-result-count {
+            font-size: 1rem;
+        }
+
+        .woocommerce-ordering select {
+            padding: .5em;
+            background: #e1e1e1;
+            font-size: .85rem;
+
+            @media screen and ( min-width: 400px ) {
+                font-size: 1.075rem;
+            }
+
+            option {
+                background: #fff;
+            }
+        }
+    }
+
+    //page product layout
+    #container {
+        flex-basis: 75%;
+        padding: 0 1em;
+    }
+
+    //page sidebar layout
+    .widget-area {
+        flex-basis: 25%;
+        padding: 1em 1em 0;
+        
+        &#secondary {
+            width: 80%;
+            margin: .5em auto 0;
+
+            @media screen and ( min-width: 500px ) {
+                width: 50%;
+            }
+
+            @media screen and ( min-width: $query__medium ) {
+                width: 25%;
+                margin: 0 auto;
+            }
+
+            section {
+                padding: 0;
+
+                h2 {
+                    background: #42413D;
+                    color: #fff;
+                    border-radius: 2px;
+                    padding: .5em;
+                    font-size: 1rem;
+                    margin-bottom: 1em;
+                }
+                
+                
+                .dropdown_product_cat,
+                .select2-selection__rendered {
+                    border: none;
+                    border-bottom: 2px solid #e1e1e1;
+                }
+            }
+        }
+    }
+
+    //+/- buttons and quantity field
+    .cart {
+
+        .quantity {
+            text-align: center;
+
+            .qty {
+                width: 2.5em;
+                padding: .5em 0;
+                vertical-align: middle;
+                background-color: #f2f2f2;
+                color: #43454b;
+                outline: 0;
+                border: 0;
+                font-weight: 400;
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.125)
+            }
+
+            .minus,
+            .plus {
+                border: none;
+                padding: 0.5em;
+                background: none;
+                font-weight: 700;
+                font-size: .95rem;
+            }
+        }
+    }
+}
+
+//shop archive pages no input
+.archive .cart .quantity {
+    display: none;
+}

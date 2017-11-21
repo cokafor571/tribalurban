@@ -1,0 +1,150 @@
+//footer links and accepted payments
+.links-accepted-payments {
+  
+  .footer-links {
+    display: flex;
+    justify-content: space-between;
+
+    ul {
+
+      li {
+        font-size: 1.1em;
+        font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+        margin-bottom: .5em;
+
+        a {
+          cursor: pointer;
+
+          &:focus,
+          &:hover {
+            text-decoration: none;
+            border: none;
+            color: rgba( 0,0,0,.5 );
+          }
+        }
+      }
+    }
+  }
+
+  .payment-copyright {
+    display: block;
+    margin-top: 1em;
+    text-align: center;
+
+    @media screen and ( min-width: 457px ) {
+      display: flex;
+      align-items: center;
+    }
+
+    p {
+      justify-content: center;
+      text-align: center;
+
+      @media screen and ( min-width: 457px ) {
+        display: flex;
+        justify-content: flex-end;
+        flex: 1;
+      }
+    }
+  }
+}
+
+
+//about us footer widget style
+#custom_html-2 {
+
+  h2 {
+    font-size: 1.5rem;
+    font-family: $font__sans;
+  }
+}
+
+#custom_html-3 {
+    box-shadow: inset 0 0 20px #eee;
+}
+
+
+//social links and mailchimp
+.social-email-footer {
+
+  .social-footer {
+    display: flex;
+    justify-content: center;
+    font-size: 1.75rem;
+
+    a:hover,
+    a:focus {
+      border: none;
+    }
+
+    .fa-instagram {
+      padding: .25em;
+      color: #89907b;
+
+        &:hover {
+          color: #bc2a8d;
+      }
+    }
+
+    .fa-facebook-square {
+      padding: .25em;
+      fill: #89907b;
+      color: #89907b;
+
+
+      &:hover {
+        color: #3B5998;
+      }
+    }
+
+    .fa-pinterest {
+      padding: .25em;
+      color: #89907b;
+
+      &:hover {
+        color: #BD081C;
+      }
+    }
+  }
+
+  .email-list {
+    text-align: center;
+
+    h5 {
+      font-size: 1.15rem;
+    }
+  }
+}
+
+//mailchimp
+.mc4wp-form {
+
+  .mc4wp-form-fields {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1em;
+
+    p {
+      margin: 0;
+
+      [value="Join"] {
+        width: 100%;
+        font-size: 1rem;
+        font-family: $font__sans;
+        background: $color__site-red-deep;
+        color: #fff;
+        border: none;
+        border-radius: 0;
+        margin-top: .25em;
+      }
+    }
+  }
+
+  .mc4wp-alert.mc4wp-error p {
+    text-align: center;
+    color: $color__site-red-deep;
+    margin: 0;
+  }
+}

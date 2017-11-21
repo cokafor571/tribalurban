@@ -1,0 +1,74 @@
+body {
+	background: url( http://tribalurban.dev/wp-content/uploads/2017/11/dust_scratches.png );
+	color: #777;
+	-webkit-font-smoothing: antialiased;
+
+	.site {
+		max-width: 1280px;
+		margin: 0 auto;
+		background: #fff;
+	}
+}
+
+//no outlines
+button,
+input {
+
+	&:focus {
+		outline: none;
+	}
+}
+
+/* Single posts */
+@media screen and (min-width: $query__medium) {
+	.single.has-sidebar,
+	.page {
+
+		.hentry {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+
+			.entry-header {
+				width: 100%;
+				flex: 1 0 100%;
+			}
+
+			.widget-area {
+				width: $size__ratio-small;
+			}
+		}
+
+	}
+
+	.page {
+		&.has-page-sidebar {
+			.hentry {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+}
+
+
+@media screen and (min-width: $query__medium) {
+	.single {
+		&.no-sidebar {
+
+			.post-content__wrap {
+				display: flex;
+				justify-content: space-between;
+
+				.entry-meta {
+					width: 20%;
+				}
+
+				.post-content__body {
+					width: 70%;
+				}
+			}
+
+		}
+	}
+}
+

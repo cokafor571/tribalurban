@@ -1,0 +1,178 @@
+//remove margins on page
+.page-id-74244 {
+
+    .entry-content {
+        margin: 0;
+    }
+}
+
+.piercing-care-page {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+
+    @media screen and ( min-width: $query__small ) {
+        display: block;
+    }
+
+    @media screen and ( min-width: 1060px ) {
+        display: flex;
+        flex-direction: row;
+    }
+
+    img,
+    .piercing-text {
+        flex: 1;
+    }
+
+    img {
+        width: 100%;
+        margin: 0;
+        display: block;
+
+        @media screen and ( min-width: $query__small ) {
+            width: 70%;
+            margin: 1em auto 0;
+        }
+
+        @media screen and ( min-width: 1060px ) {
+            display: flex;
+            margin: 0;
+        }
+    }
+
+    .piercing-text {
+        padding: 1em;
+        background: #f6f6f6;
+        position: relative;
+        z-index: 1;
+        top: 0;
+        width: 100%;
+        margin: 0 auto;
+
+        @media screen and ( min-width: 720px ) {
+            width: 50%;
+            top: -50px;
+        }
+
+        @media screen and ( min-width: 1060px ) {
+            background: none;
+            width: auto;
+            top: 0;
+            margin: 0;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: rgba(0,0,0,.7);
+
+            @media screen and ( min-width: $query__small ) {
+                font-size: 1.5rem;
+            }
+        }
+
+        p {
+            font-size: .95rem;
+            margin: 2em 0;
+
+            @media screen and ( min-width: $query__small ) {
+                font-size: 1.05rem;
+            }
+        }
+
+        a {
+            background: $color__site-red-light;
+            color: #fff;
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 1rem;
+            display: inline-block;
+            transition: transform .3s linear;
+
+            &:hover {
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+.piercing-care-reviews {
+    background: url( https://tribalgauges.com/wp-content/uploads/2017/11/piercing-care-reviews.jpg ) no-repeat center center;
+    background-size: cover;
+    position: relative;
+
+    @media screen and ( min-width: 769px ) {
+        background-size: auto;
+    }
+
+    @include dark-background( $background-color: rgba(0,0,0,.5) );
+
+    &:before {
+        z-index: 0;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        color: #fff;
+        text-align: center;
+        padding: .5em 0;
+        margin: 0;
+        position: relative;
+
+        @media screen and ( min-width: $query__small ) {
+            font-size: 2rem;
+        }
+    } 
+
+    .piercing-review-block {
+        display: block;
+        padding: 1em;
+        position: relative;
+
+        @media screen and ( min-width: 769px ) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .piercing-review-text {
+            font-size: 1rem;
+            text-align: center;
+            color: #fff;
+            flex: 1;
+
+            &:nth-of-type(2) {
+                flex: 2;
+            }
+
+            blockquote {
+                background: none;
+                color: #fff;
+                padding: 1.5em 0;
+
+                @media screen and ( min-width: 425px ) {
+                    padding: 1em 2em .5em 5em;
+                }
+            }
+
+            p {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    border-radius: 50%;
+                    overflow: hidden;
+                    width: 48px;
+                    margin: 0 .5em;
+                }
+            }
+
+            a {
+                color: $color__site-red-light;
+                font-weight: 700;
+            }
+        }
+    }
+}

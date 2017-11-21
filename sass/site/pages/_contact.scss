@@ -1,0 +1,123 @@
+.page-id-74248 .entry-content {
+    margin: 0;
+}
+
+.contact-us {
+    display: block;
+    color: rgba(0,0,0,.8);
+
+    @media screen and ( min-width: $query__medium ) {
+        display: flex;
+    }
+
+    .nnja-form {
+        flex: 1.5;
+        color: #fff;
+        background: #686f7f;
+        animation: translateUp 1s .5s ease-out both;
+        padding-bottom: .25em;
+
+        .nf-form-wrap {
+            width: 90%;
+            margin: 0 auto;
+
+            @media screen and ( min-width: 500px ) {
+                width: 100%;
+            }
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 0;
+
+            @media screen and ( min-width: 500px ) {
+                font-size: 1.5rem;
+                text-align: left;
+            }
+
+            @media screen and ( min-width: $query__medium ) {
+                margin-top: .75em;
+            }
+        }
+
+        label {
+            font-size: 1rem;
+        }
+
+        input {
+            background: #eee;
+        }
+
+        .nf-form-fields-required {
+            display: none;
+        }
+
+        .nf-form-cont {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .nf-field-element textarea {
+            height: 100px;
+            background: #eee;
+        }
+
+        .submit-container .submit-wrap {
+
+            input {
+                background: transparent;
+                font-size: 1.1rem;
+                color: #fff;
+                padding: 12px 24px;
+                border-color: #fff;
+            }
+        }
+    }
+
+    .contact-info {
+        flex: 1;
+        text-align: center;
+        animation: translateUp 1s 1s ease-in-out both;
+
+        @media screen and ( min-width: $query__medium ) {
+            text-align: left;
+            padding: 0 1em;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1em;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin: .5em;
+        }
+
+        .social-connect {
+            margin: 2em 0 1em;
+            font-family: $font__sans;
+            font-weight: 700;
+
+            p {
+                font-size: 1.5rem;
+            }
+
+            .social-icons {
+                display: flex;
+                margin-top: .5em;
+                justify-content: center;
+
+                @media screen and ( min-width: $query__medium ) {
+                    margin-left: 18%;
+                    justify-content: flex-start;
+                }
+
+                a {
+                    margin-right: 1em;
+                }
+            }
+        }
+    }
+}

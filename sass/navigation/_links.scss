@@ -1,0 +1,34 @@
+a {
+	color: $color__link;
+
+	&:visited {
+		color: $color__link-visited;
+	}
+	&:hover,
+	&:focus,
+	&:active {
+		color: $color__link-hover;
+	}
+	&:focus {
+		outline: none;
+	}
+	&:hover,
+	&:active {
+		outline: none;
+	}
+}
+
+.page-content,
+.entry-content,
+.entry-summary,
+.comment-content {
+
+	a {
+		text-decoration: none;
+
+		&:focus,
+		&:hover {
+			color: $color__site-red-secondary;
+		}
+	}
+}

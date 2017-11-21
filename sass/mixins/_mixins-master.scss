@@ -1,0 +1,125 @@
+// Rem output with px fallback
+@mixin font-size($sizeValue: 1) {
+	font-size: ($sizeValue * 18) * 1px;
+	font-size: $sizeValue * 1.2rem;
+}
+
+// Center block
+@mixin center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// Clearfix
+@mixin clearfix() {
+	content: "";
+	display: table;
+	table-layout: fixed;
+}
+
+// Clear after (not all clearfix need this also)
+@mixin clearfix-after() {
+	clear: both;
+}
+
+@mixin dark-background( $background-color: rgba(0,0,0,.25) ) {
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: $background-color;
+        display: block; 
+        z-index: 1; 
+        // add position relative to parent
+		// may need to add z-index as necessary
+    }
+}
+
+@mixin dark-background-invisible {
+    &:before {
+        content: '';
+        position: absolute;
+        opacity: 0;
+        transition: all .25s linear;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.75);
+        display: block; 
+        z-index: 1; 
+        // add position relative to parent
+		// may need to add z-index as necessary
+    }
+}
+
+@mixin slanted-background {
+    &:before {
+        content: '';
+        position: absolute;
+        left: 400px;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: block; 
+        z-index: 1; 
+        transform: skew(26.25deg);
+        // add position relative to parent
+		// may need to add z-index as necessary
+
+        @media screen and ( min-width: 1025px ) {
+            left: 650px;
+        }
+    }
+}
+
+// underline title
+@mixin title-uline( $line-color: rgba(0,0,0,.5), $line-width: 90px ) {
+  &:after {
+      background: $line-color;
+      bottom: -5px;
+      content: "";
+      display: block;
+      height: 5.5px;
+      position: relative;
+      width: $line-width;
+      margin: 0 auto;
+  }
+}
+
+//arrow 
+@mixin arrow {
+
+    &:before,
+    &:after {
+        bottom: -2px;
+        z-index: 6;
+        opacity: 1;
+        opacity: 0;
+        left: 35%;
+        border: solid transparent;
+        content: '';
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    &:before {
+        border-bottom-color: #ddd;
+        border-width: 11px;
+        margin-left: -11px;
+    }
+
+    &:after {
+        border-color: rgba(221,221,221,0);
+        border-bottom-color: #fff;
+        border-width: 8px;
+        margin-left: -8px;
+    }
+}
