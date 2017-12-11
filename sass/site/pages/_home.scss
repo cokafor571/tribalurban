@@ -1,3 +1,50 @@
+//usp header
+.usp {
+    margin: 2em 0 4em;
+
+    .usp-services {
+        display: flex;
+        justify-content: space-around;
+        width: 80%;
+        margin: 0 auto;
+
+        span {
+            font-size: 1.5rem;
+        }
+
+        p {
+            color: #777;
+            display: flex;
+            align-items: center;
+            font-size: 1.05rem;
+
+            i {
+                color: $color__site-brown-primary;
+
+                &.fa-paper-plane {
+                    padding-right: .5em;
+                }
+
+                &.fa-check {
+                    position: relative;
+                    top: -3px;
+                    left: 10%;
+                }
+            }
+        }
+    }
+
+    .usp-headline {
+        text-align: center;
+
+        h2 {
+            color: #333;
+            font-size: 2rem;
+            margin: 0;
+        }
+    }
+}
+
 //intro 3 offset pictures
 .intro-imgs {
     display: block;
@@ -79,11 +126,10 @@
                 font-weight: 700;
                 display: inline-block;
                 padding: 8px 20px 8px;
-                border-radius: 1000px;
-                border: 1px solid #000;
+                border: 1px solid #1d9d73;
                 text-decoration: none;
-                background: #000;
-                color: #1d9d73;
+                background: #1d9d73;
+                color: #333;
                 transition: all linear .25s;
 
                 @media screen and ( min-width: 768px ) {
@@ -234,7 +280,7 @@
             color: $color__site-brown-dark;
 
             @media screen and ( min-width: 500px ) {
-                font-size: 1.15rem;
+                font-size: 1.5rem;
             }
         }
 
@@ -243,20 +289,19 @@
             font-size: 1.05rem;
 
             @media screen and ( min-width: 500px ) {
-                font-size: 1rem;
+                font-size: 1.25rem;
             }
         }
 
         a {
-            font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+            font-family: $font__sans;
             font-size: 1.1rem;
             color: #fff;
-            border-radius: 2px;
             padding: 8px 18px;
             background: $color__site-brown-dark;
 
             @media screen and ( min-width: $query__small ) {
-                font-size: 1.15rem;
+                font-size: 1.25rem;
             }
 
             span {
@@ -293,22 +338,30 @@
 
 //blog headliner
 .blog-headline {
-    background: url( http://tribalurban.dev/wp-content/uploads/2017/11/sugar-scrub.jpg ) no-repeat center center;
-    background-attachment: fixed;
+    background: url( http://tribalurban.com/wp-content/uploads/2017/11/sugar-scrub-small.jpg ) no-repeat left center;
+    background-attachment: initial;
     min-height: 200px;
     position: relative;
     overflow: hidden;
-    margin-top: 2em;
+    margin: 2em 0;
 
-    @include dark-background( $background-color: rgba(0,0,0,.5) );
+    @include dark-background( $background-color: rgba(219,224,210, .25) );
+
+    @media screen and (min-width: 501px) {
+        background: url( http://tribalurban.com/wp-content/uploads/2017/11/sugar-scrub.jpg ) no-repeat center center;
+        background-attachment: fixed;
+    }
 
     @media screen and (min-width: $query__small) {
-        @include slanted-background;
-        min-height: 400px;
+        @include slanted-background( $background-color: rgba(219,224,210, .5) );
+
+        &:before {
+            transform: skew(0);
+        }
     }
 
     .blog-info {
-        color: #fff;
+        color: #000;
         font-family: $font__sans;
         position: relative;
         z-index: 1;
@@ -340,11 +393,10 @@
             font-weight: 700;
             display: inline-block;
             padding: 8px 20px;
-            border-radius: 1000px;
-            border: 1px solid #fff;
+            border: 1px solid #000;
             text-decoration: none;
             background: transparent;
-            color: #fff;
+            color: #000;
             transition: all linear .25s;
 
             @media screen and ( min-width: 769px ) {
@@ -359,9 +411,101 @@
 
             &:hover {
                 background: #000;
-                border-color: #000;
+                color: #fff;
             }
         }
 
+    }
+}
+
+
+// Reviews
+.urban-reviews {
+    position: relative;
+    padding-bottom: 1em;
+
+    &:before {
+        z-index: 0;
+    }
+
+   h2 {
+        margin: 0;
+        padding: 0 0 1em;
+        font-size: 1.5rem;
+        text-align: center;
+        position: relative;
+
+        &:before {
+            content: "";
+            position: absolute;
+            height: 5px;
+            border-top: 1px solid #e6e6e6;
+            bottom: 44px;
+            width: 100%;
+            z-index: 0;
+            left: 0;
+        }
+        
+        @media screen and ( min-width: $query__small ) {
+            font-size: 1.75rem;
+        }
+
+        span {
+            padding: 0 40px;
+            line-height: 1em;
+            background: #fff;
+            position: relative;
+        }
+    }
+
+    .urban-review-block {
+        display: block;
+        padding: 1em;
+        position: relative;
+
+        @media screen and ( min-width: 769px ) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .urban-review-text {
+            font-size: 1rem;
+            text-align: center;
+            color: #333;
+            flex: 1;
+
+            &:nth-of-type(2) {
+                flex: 2;
+            }
+
+            blockquote {
+                background: none;
+                color: #333;
+                padding: 1.5em 0;
+
+                @media screen and ( min-width: 425px ) {
+                    padding: 1em 2em .5em 5em;
+                }
+            }
+
+            p {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    border-radius: 50%;
+                    overflow: hidden;
+                    width: 48px;
+                    margin: 0 .5em;
+                }
+            }
+
+            a {
+                color: $color__site-brown-primary;
+                font-weight: 700;
+            }
+        }
     }
 }

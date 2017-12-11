@@ -1,15 +1,10 @@
 .control-header-height {
-  max-height: 100vh;
+  max-height: 115vh;
   position: relative;
 
   @media screen and (min-width: $query__small) {
     overflow: hidden;
   }
-}
-
-//logo cart block
-.logo-cart-menu {
-  display: flex;
 }
 
 .site-header {
@@ -28,12 +23,18 @@
   }
 }
 
-.page-id-4 .header-image {
-  
-  @media screen and (min-width: 1025px) {
-    height: 56vh;
+// woocommerce account header
+.woocommerce-account.woocommerce-page {
+  .control-header-height {
+    max-height: 75vh;
+    position: relative;
+
+    @media screen and (min-width: $query__small) {
+      overflow: hidden;
+    }
   }
 }
+
 
 //page header
 .header-group {
@@ -84,7 +85,7 @@
   font-family: $font__serif;
 
   @media screen and (min-width: 500px) {
-    top: 35%;
+    top: 25%;
   }
 
   @media screen and (min-width: 700px) {
@@ -182,21 +183,29 @@
 
         .shop-button {
           font-size: 12px;
+          position: relative;
           display: inline-block;
           width: 100%;
           max-width: 120px;
           margin: 0 2px;
-          padding: 10px 20px 8px;
-          border-radius: 1000px;
           border: 1px solid #1d9d73;
           color: #fff;
           text-decoration: none;
           background: #1d9d73;
           transition: all linear .25s;
 
+          &:after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            right: -6px;
+            bottom: -6px;
+            border: 1px solid #1d9d73;
+          }
+
           @media screen and ( min-width: 500px ) {
             max-width: 158px;
-            padding: 13px 20px 14px;
             font-size: 14px;
           }
 
@@ -204,8 +213,22 @@
             background: transparent;
             color: #000;
 
+            span {
+              transform: translateX(-2px) translateY(-2px);
+            }
+
             @media screen and (min-width: 700px) {
               color: #fff;
+            }
+          }
+
+          span {
+            display: block;
+            padding: 10px 20px 8px;
+            transition: all .25s ease-out;
+
+            @media screen and ( min-width: 500px ) {
+              padding: 13px 20px 14px;
             }
           }
         }
@@ -258,8 +281,9 @@
 
       &[type="search"] {
         border: none;
-        border-bottom: 2px solid #333;
-        background: none;
+        width: 75%;
+        padding: 8px 5px;
+        background: #fff;
       }
 
       &[type="submit"] {

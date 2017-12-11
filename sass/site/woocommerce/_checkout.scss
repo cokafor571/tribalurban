@@ -50,7 +50,7 @@
 
         .button.wc-backward {
             color: #fff;
-            background: $color__site-red-light;
+            background: $color__site-brown-primary;
         }
 
         .woocommerce-cart-form {
@@ -80,10 +80,24 @@
                             font-size: 1rem;
                         }
                     }
+
+                    .product-subtotal .woocommerce-Price-amount {
+                        color: $color__site-brown-primary;
+                    }
                 }
 
                 img {
                     width: 90px;
+                }
+
+                .actions [name="apply_coupon"] {
+                    background: #fff;
+                    font-family: $font__sans;
+                    text-transform: uppercase;
+                    border-radius: 0;
+                    font-size: .9rem;
+                    font-weight: 400;
+                    border: 1px solid $color__site-brown-primary;
                 }
             }
         }
@@ -105,6 +119,10 @@
                     background-color: #e1e1e1;
                     color: rgba( 0,0,0,.8 );
                 }
+
+                .order-total .woocommerce-Price-amount {
+                    color: $color__site-brown-primary;
+                }
                 
                 .shop_table {
                     border: none;
@@ -125,7 +143,8 @@
 
                     a {
                         margin: 0;
-                        background: $color__site-red-light;
+                        background: $color__site-brown-primary;
+                        border-radius: 0;
                     }
                 }
             }
@@ -149,6 +168,26 @@
 
         li {
             margin-bottom: .25em;
+        }
+    }
+
+    #payment {
+
+        .form-row.place-order {
+            background: #fff;
+            text-align: center;
+
+            #place_order {
+                float: none;
+                background-color: $color__site-brown-primary;
+                border-radius: 0;
+                font-family: $font__sans;
+                text-transform: uppercase;
+                font-size: .9rem;
+                padding: 12.5px 25px;
+                font-weight: 400;
+                letter-spacing: .025em;
+            }
         }
     }
 
@@ -179,10 +218,6 @@
                     box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
                     margin-bottom: 1em;
                     transition: all .3s linear;
-
-                    &:hover {
-                        box-shadow: inset 0 -1.8em 1em 0 transparent;
-                    }
                 }
             }
         }
@@ -227,6 +262,25 @@
 
                 @media screen and ( min-width: $query__medium ) {
                     font-size: 1rem;
+                }
+            }
+
+            .cart-subtotal,
+            .order-total {
+
+                th {
+                    font-weight: 400;
+                    text-transform: uppercase;
+                    font-size: .85rem;
+                }
+
+                td {
+                    font-weight: 400;
+
+                    strong {
+                        font-weight: 400;
+                        color: $color__site-brown-dark;
+                    }
                 }
             }
         }

@@ -42,6 +42,7 @@
     //reverse page-height
     .control-header-height {
         max-height: 100%;
+        overflow: visible;
     }
 
     //info
@@ -61,65 +62,95 @@
 
     //breadcrumbs
     .woocommerce-breadcrumb {
-        background-color: #f5f5f5;
-        padding: 1em .5em;
+        padding: 1em;
         font-size: .8rem;
         text-transform: uppercase;
         letter-spacing: 1px;
         border-top: 1px solid #d2d2d2;
         border-bottom: 1px solid #d2d2d2;
+        margin: 0;
 
         @media screen and ( min-width: $query__small ) {
-            font-size: .9rem;
+            font-size: .85rem;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: $color__site-brown-primary;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 
     //page title area
     .woocommerce-products-header {
-        padding: 0 .5em;
         display: block;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 2em;
+        background: #f5f5f5;
 
         @media screen and ( min-width: $query__medium ) {
             display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            flex-direction: row-reverse;
         }
 
         h1 {
             font-size: 1.5rem;
             text-transform: uppercase;
             text-align: center;
+            background: #fff;
+            margin: 0;
+            padding: 1em 0;
 
             @media screen and ( min-width: $query__small ) {
                 text-align: left;
                 font-size: 2.5rem;
             }
-        }
 
-        .woocommerce-result-count {
-            font-size: 1rem;
-        }
-
-        .woocommerce-ordering select {
-            padding: .5em;
-            background: #e1e1e1;
-            font-size: .85rem;
-
-            @media screen and ( min-width: 400px ) {
-                font-size: 1.075rem;
-            }
-
-            option {
-                background: #fff;
+            @media screen and ( min-width: $query__medium ) {
+                text-align: center;
+                width: 100%;
             }
         }
     }
 
-    //page product layout
+    // Shop Page Layout and Default sorting and results count styling
     #container {
+        padding-top: 2em;
         flex-basis: 75%;
-        padding: 0 1em;
+        padding: 2em 1em 0;
+
+        [role="main"] {
+            display: flex;
+            flex-direction: column-reverse;
+            position: relative;
+
+            .woocommerce-result-count {
+                position: absolute;
+                top: 7px;
+                left: 75%;
+                font-size: .9rem;
+            }
+
+            .woocommerce-ordering select {
+                padding: .75em .5em;
+                font-size: .85rem;
+                font-family: $font__sans;
+
+                @media screen and ( min-width: 400px ) {
+                    font-size: .9rem;
+                }
+
+                option {
+                    background: #fff;
+                }
+            }
+        }
     }
 
     //page sidebar layout
@@ -141,17 +172,47 @@
             }
 
             section {
-                padding: 0;
+                padding: 1em;
+                background: #fff;
+                border: 1px solid #e6e6e6;
 
                 h2 {
-                    background: #42413D;
-                    color: #fff;
-                    border-radius: 2px;
+                    color: #797979;
                     padding: .5em;
-                    font-size: 1rem;
+                    font-size: 1.15rem;
                     margin-bottom: 1em;
+                    text-transform: uppercase;
+                    text-align: center;
                 }
                 
+                // product category, filter by size widget styles
+                .product-categories,
+                .woocommerce-widget-layered-nav-list {
+                    text-transform: uppercase;
+                    padding: 0 1em 1em;
+
+                    .cat-item,
+                    .woocommerce-widget-layered-nav-list__item {
+                        font-size: .85rem;
+                        padding: .75em 0;
+                        border-top: 1px solid #e6e6e6;
+
+                        &:last-of-type {
+                            border-bottom: 1px solid #e6e6e6;
+                        }
+
+                        a {
+                            color: #797979;
+
+                            &:hover,
+                            &:focus {
+                                text-decoration: none;
+                                border: none;
+                                color: $color__site-brown-dark;
+                            }
+                        }
+                    }
+                }
                 
                 .dropdown_product_cat,
                 .select2-selection__rendered {
@@ -160,8 +221,50 @@
                 }
             }
         }
-    }
 
+        // filter by amount styles
+        .widget_price_filter {
+
+            .price_slider_amount {
+                flex-direction: column-reverse;
+                display: flex;
+                text-align: left;
+
+                .from,
+                .to {
+                    border: 1px solid #e6e6e6;
+                    padding: 4px 12px;
+                }
+
+                button {
+                    font-family: $font__sans;
+                    font-size: .85rem;
+                    text-transform: uppercase;
+                    color: #fff;
+                    background: $color__site-brown-primary;
+                    margin-top: .5em;
+                    padding: 1em;
+                }
+            }
+
+            //filter range color
+            .price_slider_wrapper .ui-widget-content {
+                background-color: $color__site-brown-primary;
+            }
+
+            .ui-slider {
+
+                .ui-slider-range {
+                    background-color: $color__site-brown-primary;
+                }
+
+                .ui-slider-handle {
+                    background-color: $color__site-brown-primary;
+                }
+            }
+        }
+    }
+    
     //+/- buttons and quantity field
     .cart {
 
@@ -192,7 +295,43 @@
     }
 }
 
+//woocommerce messages style
+.woocommerce-message {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+
+    a.button {
+        background: $color__site-brown-primary;
+        color: #fff;
+    }
+}
+
 //shop archive pages no input
 .archive .cart .quantity {
     display: none;
+}
+
+//single product page individual tab sizes 
+.woocommerce #content div.product .woocommerce-tabs ul.tabs li, .woocommerce div.product .woocommerce-tabs ul.tabs li, .woocommerce-page #content div.product .woocommerce-tabs ul.tabs li, .woocommerce-page div.product .woocommerce-tabs ul.tabs li {
+    font-size: 1.05rem;
+}
+
+/* 
+ * Custom AJAX spinner on WooCommerce checkout 
+ * The class used to load the overlay is .blockUI .blockOverlay
+ * The class used to load the spinner is .woocommerce .loader:before
+ *
+ */
+.woocommerce .blockUI.blockOverlay:before,.woocommerce .loader:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -.5em;
+    margin-top: -.5em;
+    display: block;
+    content: "";
+    background: url('http://tribalurban.dev/wp-content/uploads/2017/12/gear-ajax-loader.gif') no-repeat center center;
+    line-height: 1;
+    text-align: center;
 }

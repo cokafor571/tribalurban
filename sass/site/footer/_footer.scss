@@ -19,7 +19,7 @@
           &:hover {
             text-decoration: none;
             border: none;
-            color: rgba( 0,0,0,.5 );
+            color: rgba(255, 255, 255, 0.8);
           }
         }
       }
@@ -79,7 +79,7 @@
 
     .fa-instagram {
       padding: .25em;
-      color: #89907b;
+      color: #fff;
 
         &:hover {
           color: #bc2a8d;
@@ -88,8 +88,8 @@
 
     .fa-facebook-square {
       padding: .25em;
-      fill: #89907b;
-      color: #89907b;
+      fill: #fff;
+      color: #fff;
 
 
       &:hover {
@@ -99,7 +99,7 @@
 
     .fa-pinterest {
       padding: .25em;
-      color: #89907b;
+      color: #fff;
 
       &:hover {
         color: #BD081C;
@@ -129,7 +129,7 @@
     p {
       margin: 0;
 
-      [value="Join"] {
+      [value="Subscribe"] {
         width: 100%;
         font-size: 1rem;
         font-family: $font__sans;

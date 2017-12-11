@@ -198,7 +198,7 @@
 /* Footer widget stylings */
 .footer-widgets {
 	padding: 1em;
-	background-color: $color__site-brown-primary;
+	background-color: $color__site-black;
 
 	@media screen and (min-width: $query__medium) {
 		padding: 2em 1em 0;
@@ -232,12 +232,12 @@
 	.widget_calendar thead,
 	.rss-date,
 	.widget_rss cite {
-		color: #333;
+		color: #fff;
 	}
 
 	.widget_calendar td,
 	.widget_calendar a {
-		color: black;
+		color: #fff;
 	}
 
 	@media screen and (min-width: $query__medium) {

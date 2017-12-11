@@ -336,7 +336,21 @@ function starterpack_scripts() {
 	*
 	*/
     // Enque google fonts: 
-    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Montserrat:400,700' );
+    ?> 
+	<script type="text/javascript">WebFontConfig = {
+      google: { 
+		  families: [ "Montserrat:400,700" ] 
+		}
+    };
+    (function() {
+      var wf = document.createElement('script');
+      wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+    })();</script>
+	<?php
 
 	// May Need to unminify this stylesheet
 	wp_enqueue_style( 'starterpack-style', get_stylesheet_uri() );
@@ -596,9 +610,112 @@ add_filter('woocommerce_loop_add_to_cart_link', 'custom_woo_loop_add_to_cart_lin
 
 
 /*
+* Hook yith quick view plugin to use ajax
+*/
+remove_action( 'yith_wcqv_product_summary', 'woocommerce_template_single_add_to_cart', 25 );
+add_action( 'yith_wcqv_product_summary', 'add_custom_loop_add_to_cart', 25 );
+add_action( 'yith_wcqv_product_summary', 'quick_view_ajax_hook', 35 );
+
+function quick_view_ajax_hook() { ?>
+    <script>
+					(function( $ ) {
+        $('.ajax_add_to_cart').click(function(e) {
+		e.preventDefault();
+		var prodID = $(this).attr('data-product_id');
+        var production_id = $('input[name="product_id"]').val();
+        var variation_id = $('input[name="variation_id"]').val();
+        var quantity = $('input[name="quantity"]').val();
+        $(this).addClass('adding-cart');
+		$('.cart-dropdown-inner').empty();
+
+        if (variation_id) {
+            $.ajax ({
+                url: starterpack_ajax_object.ajax_url,
+                type:'POST',
+                dataType: 'json',
+                data: {
+                    action: "starterpack_add_cart",
+                    production_id: production_id,
+                    variation_id: variation_id,
+                    quantity: quantity
+                },
+
+                success: function(response) {
+                    if ( ! response || response.error )
+                        return;
+
+                    var fragments = response.fragments;
+
+                    // Replace fragments
+                    if ( fragments ) {
+                        $.each( fragments, function( key, value ) {
+                            $( key ).replaceWith( value );
+                        });
+                    }
+                    var cartcount = $('.item-count').html();
+                    $('.cart-totals span').html(cartcount);
+                    $('.products .add_to_cart_button').removeClass('adding-cart');
+                    $('.secondary-cart').addClass('show-arrow');
+                    $('.cart-dropdown').addClass('show-dropdown');
+                    setTimeout(function () { 
+                        $('.cart-dropdown').removeClass('show-dropdown');
+                    }, 3000);
+                    setTimeout(function () { 
+                        $('.secondary-cart').removeClass('show-arrow');
+                    }, 3000);
+                }
+            });
+        } else {
+            $.ajax ({
+                url: starterpack_ajax_object.ajax_url,
+                type:'POST',
+                dataType: 'json',
+                data: {
+                    action: "starterpack_add_cart",
+                    prodID: prodID,
+                    quantity: quantity
+                },
+
+                success: function(response) {
+                    if ( ! response || response.error )
+                        return;
+
+                    var fragments = response.fragments;
+
+                    // Replace fragments
+                    if ( fragments ) {
+                        $.each( fragments, function( key, value ) {
+                            $( key ).replaceWith( value );
+                        });
+                    }
+                    var cartcount = $('.item-count').html();
+                    $('.cart-totals span').html(cartcount);
+                    $('.products .add_to_cart_button').removeClass('adding-cart');
+                    $('.secondary-cart').addClass('show-arrow');
+                    $('.cart-dropdown').addClass('show-dropdown');
+                    setTimeout(function () { 
+                        $('.cart-dropdown').removeClass('show-dropdown');
+                    }, 3000);
+                    setTimeout(function () { 
+                        $('.secondary-cart').removeClass('show-arrow');
+                    }, 3000);
+                }
+            });
+        }
+	}); 
+})( jQuery );
+				</script>
+<?php }
+
+
+/*
 ** Add to cart ajax woocommerce store
 */
 function starterpack_add_cart_ajax() {
+
+// Get mini cart
+    ob_start();
+
 	$prodID = $_POST['prodID'];
 	$quantity = $_POST['quantity'];
 	$production_id = $_POST['production_id'];
@@ -608,84 +725,71 @@ function starterpack_add_cart_ajax() {
         WC()->cart->add_to_cart( $production_iD, $quantity, $variation_id );
     } else {
         WC()->cart->add_to_cart( $prodID, $quantity);
-    }
+    }		
 
-	    foreach( WC()->cart->get_cart() as $cart_item_key => $cart_item ) { 
-		$_product = $cart_item['data']->post; ?>
-		
-		<div class="dropdown-cart-wrap">
-			<div class="dropdown-cart-left">
-				<!-- Checks whether the product is a variation, then display the variation image. -->
-				<?php $variation = $cart_item['variation_id'];
-				if ($variation) {
-					echo get_the_post_thumbnail( $cart_item['variation_id'], 'thumbnail' ); 
-				} else {
-					echo get_the_post_thumbnail( $cart_item['product_id'], 'thumbnail' ); 
-				} ?>
-			</div>
+    WC()->cart->calculate_totals();
+    WC()->cart->maybe_set_cart_cookies();
+    
+    woocommerce_mini_cart();
 
-			<div class="dropdown-cart-right">
-				<a href="<?php echo get_permalink($_product->ID); ?>"><?php echo $_product->post_title; ?></a>
-				<p class="price-amount"><?php echo $cart_item['quantity']; ?> <span>x</span>
-				<?php global $woocommerce;
-				$currency = get_woocommerce_currency_symbol();
+    $mini_cart = ob_get_clean();
 
-				if ($variation) {
-					$price = get_post_meta( $cart_item['variation_id'], '_regular_price', true);
-				} else {
-					$price = get_post_meta( $cart_item['product_id'], '_regular_price', true);
-				}
+    // Fragments and mini cart are returned
+    $data = array(
+        'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array(
+                'div.cart-dropdown-inner' => '<div class="cart-dropdown-inner">' . $mini_cart . '</div>'
+            )
+        ),
+        'cart_hash' => apply_filters( 'woocommerce_add_to_cart_hash', WC()->cart->get_cart_for_session() ? md5( json_encode( WC()->cart->get_cart_for_session() ) ) : '', WC()->cart->get_cart_for_session() )
+    );
 
-				if ($variation) {
-					$sale = get_post_meta( $cart_item['variation_id'], '_sale_price', true);
-				} else {
-					$sale = get_post_meta( $cart_item['product_id'], '_sale_price', true);
-				}
-				?>
-				 
-				<?php if($sale) { ?>
-					<del><?php echo $currency; echo $price; ?></del> <?php echo $currency; echo $sale; ?></p>
-				<?php } elseif($price) { ?>
-					<?php echo $currency; echo $price; ?></p>    
-				<?php } ?>
-			</div>
+    wp_send_json( $data );
 
-			<div class="clear"></div>
-		</div>
-	<?php } ?>
+    die();
 
-	<div class="dropdown-cart-wrap dropdown-cart-subtotal">
-		<div class="dropdown-cart-left">
-			<h6>Subtotal:</h6>
-		</div>
-
-		<div class="dropdown-cart-right">
-			<h6><?php echo WC()->cart->get_cart_total(); ?></h6>
-		</div>
-
-		<div class="clear"></div>
-	</div>
-
-	<?php $cart_url = $woocommerce->cart->get_cart_url();
-	$checkout_url = $woocommerce->cart->get_checkout_url(); ?>
-
-	<div class="dropdown-cart-wrap dropdown-cart-links">
-		<div class="dropdown-cart-left dropdown-cart-link">
-			<a href="<?php echo $cart_url; ?>">View Cart</a>
-		</div>
-
-		<div class="dropdown-cart-right dropdown-checkout-link">
-			<a href="<?php echo $checkout_url; ?>">Checkout</a>
-		</div>
-
-		<div class="clear"></div>
-	</div>
-
-	<?php die();
 }
 
 add_action('wp_ajax_starterpack_add_cart', 'starterpack_add_cart_ajax');
 add_action('wp_ajax_nopriv_starterpack_add_cart', 'starterpack_add_cart_ajax');
+
+
+// Remove product in the cart using ajax
+function warp_ajax_product_remove()
+{
+    // Get mini cart
+    ob_start();
+
+    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item)
+    {
+        if($cart_item['product_id'] == $_POST['product_id'] && $cart_item_key == $_POST['cart_item_key'] )
+        {
+            WC()->cart->remove_cart_item($cart_item_key);
+        }
+    }
+
+    WC()->cart->calculate_totals();
+    WC()->cart->maybe_set_cart_cookies();		
+
+    woocommerce_mini_cart();
+
+    $mini_cart = ob_get_clean();
+
+    // Fragments and mini cart are returned
+    $data = array(
+        'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array(
+                'div.cart-dropdown-inner' => '<div class="cart-dropdown-inner">' . $mini_cart . '</div>'
+            )
+        ),
+        'cart_hash' => apply_filters( 'woocommerce_add_to_cart_hash', WC()->cart->get_cart_for_session() ? md5( json_encode( WC()->cart->get_cart_for_session() ) ) : '', WC()->cart->get_cart_for_session() )
+    );
+
+    wp_send_json( $data );
+
+    die();
+}
+
+add_action( 'wp_ajax_product_remove', 'warp_ajax_product_remove' );
+add_action( 'wp_ajax_nopriv_product_remove', 'warp_ajax_product_remove' );
 
 
 // more products per page
@@ -730,6 +834,18 @@ function custom_woo_loop_add_to_cart_link($button, $product) {
     return $button;
 }
 
+add_action( 'wp_enqueue_scripts', 'mycustom_scripts_quick_view', 100 );
+function mycustom_scripts_quick_view(){
+    $script = "jQuery(document).on('qv_loader_stop', function(){
+        if( typeof jQuery.fn.tawcvs_variation_swatches_form != 'undefined' ) {
+            jQuery('.variations_form').tawcvs_variation_swatches_form();
+            jQuery(document.body).trigger('tawcvs_initialized');
+        }
+    });";
+
+    wp_add_inline_script( 'yith-wcqv-frontend', $script );
+}
+
 
 /**
 * add the required JavaScript
@@ -750,3 +866,74 @@ function custom_woo_after_shop_loop() {
 
     <?php
 }
+
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+
+add_action( 'woocommerce_after_shop_loop', 'woocommerce_result_count', 5 );
+add_action( 'woocommerce_after_shop_loop', 'woocommerce_catalog_ordering', 10 );
+
+// add stock quantity next to variation dropdown
+add_filter( 'woocommerce_variation_option_name', 'customizing_variations_terms_name', 10, 1 );
+function customizing_variations_terms_name( $term_name ){
+
+    if(is_admin())
+        return $term_name;
+
+    global $product;
+    $second_loop_stoped = false;
+
+    // Get available product variations
+    $product_variations = $product->get_available_variations();
+
+    // Iterating through each available product variation
+    foreach($product_variations as $variation){
+
+        $variation_id = $variation['variation_id'];
+        $variation_obj = new WC_Product_Variation( $variation_id );
+
+        ## WOOCOMMERCE RETRO COMPATIBILITY ##
+        if ( version_compare( WC_VERSION, '3.0', '<' ) ) # BEFORE Version 3 (older)
+        {
+            $stock_status = $variation_obj->stock_status;
+            $stock_qty = intval($variation_obj->stock);
+
+            // The attributes WC slug key and slug value for this variation
+            $attributes_arr = $variation_obj->get_variation_attributes();
+        }
+        else # For newest verions: 3.0+ (and Up)
+        {
+            $stock_status = $variation_obj->get_stock_status();
+            $stock_qty = $variation_obj->get_stock_quantity();
+
+            // The attributes taxonomy key and slug value for this variation
+            $attributes_arr = $variation_obj->get_attributes();
+        }
+
+        if(count($attributes_arr) != 1) // Works only for 1 attribute set in the product
+            return $term_name;
+
+        // Get the terms for this attribute
+        foreach( $attributes_arr as $attr_key => $term_slug){
+            // Get the attribute taxonomy
+            $term_key = str_replace('attribute_', '', $attr_key );
+
+            // get the corresponding term object
+            $term_obj = get_term_by( 'slug', $term_slug, $term_key );
+            if( $term_obj->name == $term_name ){ // If the term name matches we stop the loops
+                $second_loop_stoped = true;
+                break;
+            }
+        }
+        if($second_loop_stoped)
+            break;
+    }
+    if( $stock_qty>0 )
+        return $term_name .= ' - ' . $stock_status . ' ('.$stock_qty.')';
+    else
+        return $term_name .= ' - ' . $stock_status;
+
+}
+
+//change required pw strength
+add_filter( 'woocommerce_min_password_strength', create_function( '', 'return 2;' ) );
